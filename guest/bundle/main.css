@@ -1,0 +1,140 @@
+
+.m{
+  padding:5px;
+  border-radius:2px;
+  background-color:white;
+  box-shadow:1px 1px 3px gray;
+  margin:3px 0;
+}
+.m-head{
+  font-size:12px;
+  height:20px;
+}
+.m-head>div{
+  float:left;
+}
+.m-icon{
+  width:20px;
+  height:100%;
+}
+.m-icon>img{
+  height:100%;
+  width:100%;
+}
+.m-username{
+  width:190px;
+  margin:0px 5px;
+}
+.m-time{
+  font-size:10px;
+  color:gray;
+}
+.m-body{
+  white-space: pre-wrap;
+  word-wrap:break-word;
+}
+
+
+.messages{
+  overflow-y:scrool;
+  height:100%;
+  width:100%;
+  padding:3px;
+}
+
+
+.send-form{
+  height:50px;
+}
+.message-input{
+  resize:none;
+  height:100%;
+  padding:3px;
+  width:100%;
+  outline:none;
+}
+
+
+html,body{
+  padding:0;
+  margin:0;
+  height:100%;
+  width:100%;
+  box-sizing:border-box;
+  font-family:meiryo;
+  overflow:hidden;
+}
+.cover{
+  position:absolute;
+  top:0;
+  left:0;
+  height:100%;
+  width:100%;
+  background-color:rgba(0,0,0,0.5);
+}
+::-webkit-scrollbar{
+  width:8px;
+  background:#eee;
+}
+::-webkit-scrollbar:horizontal{
+  height:5px;
+}
+::-webkit-scrollbar-button{
+  width:5px;
+  height:5px;
+  background:#CCC;
+}
+::-webkit-scrollbar-piece{
+  background:#eee;
+}
+::-webkit-scrollbar-piece:start{
+  background:#eee;
+}
+::-webkit-scrollbar-thumb{
+  background:#CCC;
+}
+::-webkit-scrollbar-corner{
+  background:#CCC;
+}
+#app{
+  height:100%;
+  width:100%;
+}
+.bar{
+  height:20px;
+  background-color:lightblue;
+}
+.bar .close-btn{
+  -webkit-app-region:no-drag;
+  cursor:pointer;
+  float:right;
+  width:20px;
+  height:20px;
+  border-radius:100%;
+  background-color:rgb(255, 100,100);
+}
+input[type=button]{
+  border-radius:2px;
+  border:solid 4px rgb(200, 200, 255);
+  padding:3px;
+  background-color:rgb(230,230,230);
+  cursor:pointer;
+  transition:border .3s ease;
+}
+.video{
+  max-height:100%;
+  max-width:100%;
+}
+.right-bar{
+  height:100%;
+  width:250px;
+  position:fixed;
+  right:0;
+  bottom:0;
+  background-color:rgb(255,233,200);
+}
+.guest-messages{
+  height:calc(100% - 50px);
+  overflow-y:scroll;
+}
+

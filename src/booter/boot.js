@@ -1,0 +1,32 @@
+process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = '1'
+const hostPkg = require('../../host/package.json')
+const guestPkg = require('../../guest/package.json')
+const {window:hostOpt} = hostPkg;
+const {window:guestOpt} = guestPkg;
+const {app, ipcMain, BrowserWindow} = require('electron')
+const {join} = require('path')
+app.on('ready', ()=>{
+  const hostWindow = new BrowserWindow(hostOpt)  
+  hostWindow.loadFile(join(__dirname, '..', '..', 'host', 'index.html'))
+  hostWindow.on('get-account-info', (fnc)=>{
+    const accountInfo = {
+      icon:'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',
+      name:'みぞがみ よしゆき',
+    }
+    fnc(JSON.stringify(accountInfo))
+  })
+  hostWindow.on('close', app.quit.bind(app))
+  ipcMain.on('shallwin-host-booted', (ev, data)=>{
+    console.log(data)
+    const guestWindow = new BrowserWindow(guestOpt)
+    guestWindow.on('get-account-info', (fnc)=>{
+      const accountInfo = {
+        icon:'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',
+        name:'ユーザー A子',
+      }
+      fnc(JSON.stringify(accountInfo))
+    })
+    guestWindow.loadFile(join(__dirname, '..', '..', 'guest', 'index.html'))
+    guestWindow.on('get-data', (f)=>f(data))
+  })
+})

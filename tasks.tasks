@@ -1,0 +1,10 @@
+Project:
+  ✔ support thin client @done (2017/8/15 13:00:20)
+  ☐ help page on sharepoint
+  Client:
+    ☐ disable mic ui when mic not detected
+    ☐ reset resolution and framerate level
+    ✔ commandline boot @done (2017/8/15 14:29:45)
+    Effort:
+      ☐ TSS login/logout information
+      ☐ STT

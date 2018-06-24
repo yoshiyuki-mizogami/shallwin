@@ -1,0 +1,20 @@
+{
+  "name": "shallwin",
+  "version": "1.0.0",
+  "caption":"Shallwin",
+  "description": "shareするwindow",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "yoshiyuki mizogami",
+  "license": "MIT",
+  "dependencies": {},
+  "window":{
+    "height":500,
+    "width":250,
+    "frame":false,
+    "show":true,
+    "resizable":false
+  }
+}

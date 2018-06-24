@@ -1,0 +1,111 @@
+.right-console{
+  pointer-events: none;
+}
+.messages{
+  float:right;
+  pointer-events:all;
+  width:200px;
+  height:calc(100% -  100px);
+  overflow-y:scroll;
+  text-align:right;
+}
+.cm{
+  text-align:right;
+  max-width:100%;
+  display:inline-block;
+  font-size:14px;
+  border-radius:2px;
+  padding:3px;
+  overflow:hidden;
+  background-color:rgba(233,235,244,0.7);
+}
+.float-resetter{
+  clear:both;
+}
+.cm-enter-active, .cm-leave-active{
+  transition:all 0.3s ease;
+  opacity:1;
+  max-height:300px;
+}
+.cm-enter, .cm-leave-to{
+  max-height:0;
+  opacity:0;
+}
+.cm.mine{
+  background-color:rgba(200,200,255,0.7);
+}
+.cm.mine>.cm-head{
+  background-color:rgba(100,100,255,0.7);
+}
+.cm.from-sys{
+  background-color:rgba(255,255,200,0.7);
+}
+.cm.from-sys>.cm-head{
+  background-color:rgba(220,200,100,0.7);
+}
+.cm-head{
+  padding:0 2px;
+  background-color:rgba(200,200,200,0.7);
+  font-size:9px;
+}
+.cm-icon{
+  position:absolute;
+  left:0;
+  height:20px;
+  width:20px;
+}
+.cm-mess-wrap{
+  position:relative;
+  padding:1px 4px;
+}
+.cm-mess{
+  display:inline-block;
+  text-indent:22px;
+  word-wrap:break-word;
+  white-space: pre-wrap;
+}
+.cm-mess>span{
+  vertical-align:top;
+}
+.chat-cons{
+  height:100px;
+  text-align:right;
+}
+.chat-cons>div{
+  pointer-events:all;
+}
+.chat-input{
+  pointer-events:all;
+  border:solid 1px lightgray;
+  border-radius:3px;
+  padding:3px;
+  margin:0;
+  box-sizing:border-box;
+  height:55px;
+  resize:none;
+  width:100%;
+  outline:none;
+  background-color:rgba(255,255,255,0.7);
+}
+.mic,.beep,.speech, .cons-sw, .pcsound{
+background-color:gray;
+padding:0 2px;
+margin:0;
+display:inline-block;
+font-size:20px;
+height:25px;
+width:25px;
+border-radius:4px;
+cursor:pointer;
+vertical-align: top;
+}
+.pcsound{
+  font-size:15px;
+  width:40px;
+}
+.cons-sw{
+  background-color:white;
+}
+.mic.enable, .speech.enable, .beep.enable,.pcsound.enable{
+  background-color:lightgreen;
+}

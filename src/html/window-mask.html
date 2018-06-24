@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ShallwinTransparentMaskWindow</title>
+  <script src="../lib/vue.min.js"></script>
+  <style>
+    html,body{
+      margin:0;
+      font-family:'メイリオ';
+      background-color:transparent;
+      height:100%;
+      width:100%;
+      overflow:hidden;
+    }
+    div{
+      box-sizing:border-box;
+    }
+    .subtitles{
+      position:fixed;
+      bottom:0;
+      z-index:110;
+      left:0;
+      width:100%;
+      height:150px;
+      color:darkorange;
+      text-shadow:3px 3px 7px black;
+      font-size:32px;
+      font-weight:bold;
+      background-color:rgba(50,50,50, 0.4);
+      text-align:center;
+      word-break:break-all;
+      white-space:pre-wrap;
+    }
+    .micon{
+      height:40px;
+      width:40px;
+    }
+    .subtitle-name{
+      color:white;
+    }
+    .sub-enter-active, .sub-leave-active{
+      transition:all .5s ease;
+      opacity:1;
+    }
+    .sub-enter{
+      margin-top:-30px;
+      opacity:0
+    }
+    .sub-leave-to{
+      margin-top:30px;
+      opacity:0;
+    }
+    .marker{
+      height:120px;
+      width:120px;
+      z-index:200;
+      position:absolute;
+      bottom:0;
+      left:0;
+      background-color:transparent;
+    }
+    .mark{
+      position:relative;
+      height:100%;
+      width:100%;
+      border-radius:100%;
+      border:solid 15px black;
+      opacity:0.7;
+    }
+    .icon{
+      position:absolute;
+      bottom:0;
+      right:0;
+      height:32px;
+      width:32px;
+    }
+    .marker-enter-active,.marker-leave-active{
+      transition:transform 0.4s ease;
+    }
+    .marker-enter,.marker-leave-to{
+      transform:scale(0);
+    }
+    .cotoha{
+      z-index:150;
+      height:200px;
+      width:170px;
+      position:absolute;
+      bottom:120px;
+      left:270px;
+      background-image:url('../img/cotoha.png');
+      opacity:0;
+      transform:scaleY(0);
+      transition:all 1.4s ease;
+      overflow:visible;
+    }
+    .cotoha.cotoha-wait{
+      background-image:url('../img/cotoha-wait.png');
+    }
+    .cotoha-wait-user{
+      width:500px;
+      text-align:center;
+      background-color:rgba(255,255,255,0.5);
+      padding:3px 5px;
+      font-size:20px;
+      border-radius:5px;
+      margin-top:180px;
+      margin-left:-150px;
+    }
+    .cotoha-loading{
+      position:relative;
+      margin:50px auto;
+      border-radius:100%;
+      height:150px;
+      width:170px;
+      background-color:rgba(54, 54, 54, 0.5);
+    }
+    .cl-enter-active, .cl-leave-active{
+      transition:opacity .3s ease;
+      opacity:1;
+    }
+    .cl-enter, .cl-leave-to{
+      opacity:0;
+    }
+    .other-system{
+      height:80%;
+      width:100%;
+      top:10%;
+      left:0;
+      position:absolute;
+      background-color:white;
+      z-index:50;
+      box-shadow:0 0 20px 10px black;
+    }
+    .other-system>.loading{
+      position:absolute;
+      top:0;
+      left:0;
+      height:100%;
+      width:100%;
+      background-color:rgba(0,0,0,0.3);
+    }
+    .loader {
+      margin: 5% auto;
+      height:200px;
+      width:200px;
+      border:solid 25px rgba(255,255,255,0.2);
+      border-left-color:white;
+      border-radius: 50%;
+      animation: load3 1.4s infinite linear;
+      transform: translateZ(0);
+    }
+  @keyframes load3 {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+    .other-system>webview{
+      height:100%;
+      width:100%;
+      border:none;
+    }
+    .os-enter-active, .os-leave-active{
+      transition:all 0.5s ease;
+      transform:scaleY(1);
+    }
+    .os-enter, .os-leave-to{
+      transform:scaleY(0);
+    }
+    .cotoha-loading>div{
+      z-index:100;
+      position:absolute;
+      height:30px;
+      width:30px;
+      border-radius:100%;
+      background-color:white;
+      animation-name:load-cotoha;
+      animation-iteration-count:infinite;
+      animation-duration:2s;
+      animation-timing-function:linear;
+      top:60px;
+      transform:scale(0);
+    }
+    .cotoha-loading>.f{
+      animation-delay:0;
+    }
+    .cotoha-loading>.s{
+      animation-delay:.5s;
+    }
+    .cotoha-loading>.t{
+      animation-delay:1s;
+    } 
+    @keyframes load-cotoha{
+      0%{
+        left:0;transform:scale(0);
+      }
+      40%{
+        left:50%;transform:scale(1);
+      }
+      100%{
+        left:100%;transform:scale(0);
+      }
+    }
+    .fade-enter-active, .fade-leave-active{
+      transition:opacity 0.3s ease;
+      opacity:1;
+    }
+    .fade-enter, .fade-leave-to{
+      opacity:0;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <display-marker v-for="m in markers" :marker="m" :key="m.key"></display-marker>
+    <transition name="os">
+      <div class="other-system" v-if="showOther">
+        <transition name="fade">
+          <div v-show="otherLoading" class="loading"><div class="loader"></div></div>
+        </transition>
+        <webview ref="wv" :src="otherUrl" preload="./wv-pre.js"></webview>
+      </div>
+  </transition>
+    <div class="cotoha" ref="cotoha" :class="{'cotoha-wait':waitMessage}">
+      <transition name="cl">
+        <div class="cotoha-loading" v-show="waitCotoha">
+          <div class="f"></div>
+          <div class="s"></div>
+          <div class="t"></div>
+        </div>
+      </transition>
+      <div class="cotoha-wait-user" v-show="waitMessage">{{waitMessage}}さんの発言を待っています</div>
+    </div>
+    <transition-group tag="div" class="subtitles" name="sub">
+      <div class="subtitle" v-for="s in subtitles" :key="s.key"><img class="micon" v-if="s.iconUrl" :src="s.iconUrl"></img>
+        <span class="subtitle-name">{{s.name}}</span> : {{s.mess}}</div>
+    </transition-group>
+  </div>
+  <script type="x-template" id="display-marker">
+    <transition name="marker">
+    <div class="marker" :style="{top:(marker.y - 60) + 'px', left: (marker.x - 60) + 'px'}">
+      <div class="mark" :style="{'border-color':color}">
+        <img class="icon" v-if="marker.iconUrl" :src="'data:image/png;base64,'+ marker.iconUrl"></img>
+      </div>
+    </div>
+  </transition>
+  </script>
+  <script>
+    require('../js/window-mask.js')
+  </script>
+</body>
+</html>
